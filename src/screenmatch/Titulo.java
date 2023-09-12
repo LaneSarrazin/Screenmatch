@@ -1,9 +1,16 @@
 package screenmatch;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo implements Comparable<Titulo> {
 	//entao pra eu deixar uma outra classe de outro pacote usar meu atributos terei que colocar que ele é public,
 	//e os metodos tambem
+	
+	//o nome que ta vindo nesse json
+	//tou usando uma anotacao que a biblioteca me oferece
+		@SerializedName("Title")
 		private String  nome;
+		@SerializedName("Year")
 		private int anoDeLancamento;
 		private boolean incluidoNoPlano;
 		private double somaDasAvaliacoes; //colocando o private estou encapsulando o meu somaAVAlicoes
@@ -24,6 +31,13 @@ public class Titulo implements Comparable<Titulo> {
 			this.anoDeLancamento = anoDeLancamento;
 		}
 		
+		public Titulo(TituloOMDB meuTituloOMDB) {
+			this.nome = meuTituloOMDB.title();
+			this.anoDeLancamento = Integer.valueOf(meuTituloOMDB.year());
+			this.duracaoEmMinutos = Integer.valueOf(meuTituloOMDB.runtime().substring(0,2));
+			
+		}
+
 		public String getnome() {
 			return nome;
 		}
@@ -80,6 +94,10 @@ public class Titulo implements Comparable<Titulo> {
 		public int compareTo(Titulo outroTitulo) {
 								//estou comparando o meu titulo com outro nome do titulo
 			return this.getnome().compareTo(outroTitulo.getnome());
+		}
+		@Override
+		public String toString() { //fiz isso pra eu nao ficar fazendo isso la no main
+			return "nome = " + nome + "ano de lancamento " + anoDeLancamento;
 		}
 		
 		
